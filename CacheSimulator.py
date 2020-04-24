@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import random
+import sys
 
 # Probabilities of different types of access
 PREV_PROB = 0.1
@@ -75,6 +76,24 @@ class Request_Generator:
 		return random.randint(0, self.max_value)
 		
 if __name__ == "__main__":
+	print('\nOption 1:')
+	print('Cache Levels: L1')
+
+	print('\nOption 2:')
+	print('Cache Levels: L1 and L2')
+
+	print('\nOption 2:')
+	print('Cache Levels: L1, L2, and L3')
+
+	cache_size = input("Please enter if you want option 1, 2, or 3: ")
+
+	if cache_size == 1:
+		print('Call the respective function')
+	elif cache_size == 2:
+		print('Call the respective function')
+	elif cache_size == 3:
+		print('Call the respective function')
+		
 	request_generator = Request_Generator()
 	requests = request_generator.generate_requests(1000)
 	print(requests)
