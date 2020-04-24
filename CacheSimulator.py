@@ -11,6 +11,15 @@ class Cache:
 	def __init__(self):
 		return null
 
+class Cache_Block:
+	def __init__(self, data_value):		
+		# -1 means it is in main memory
+		self.cache_level = -1
+		self.data_value = data_value
+		
+		# This will be a number between 0 and the size of the cache. The value can only occur once for each cache level
+		self.last_used = 0
+				
 # Generates random requests to send to the cache class				
 class Request_Generator:
 	def __init__(self):
