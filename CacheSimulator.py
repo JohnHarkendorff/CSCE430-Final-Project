@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 import random
 
+# Probabilities of different types of access
+PREV_PROB = 0.1
+TEMPORAL_PROB = 0.30
+SPATIAL_PROB = 0.30
+RANDOM_PROB = 1.0 - PREV_PROB - TEMPORAL_PROB - SPATIAL_PROB
+
 class Cache:
 	def __init__(self):
 		return null
@@ -15,17 +21,17 @@ class Request_Generator:
 		for i in range(num_requests):
 			ran_num = random.random()
 			
-			# 10% chance of using the previous request
-			if ran_num < 0.1:
+			# Chance of using the previous request
+			if ran_num <= PREV_PROB:
 				self.requests.append(self.prev_value())
-			# 10% chance of using any of the past 5 requests
-			elif ran_num < 0.2:
+			# Chance of using any of the past 5 requests
+			elif ran_num <= (PREV_PROB + TEMPORAL_PROB):
 				self.requests.append(self.past_five())
-			# 10% chance of using a value close to the previous request's value
-			elif ran_num < 0.3:
+			# Chance of using a value close to the previous request's value
+			elif ran_num <= (PREV_PROB + TEMPORAL_PROB + SPATIAL_PROB):
 				self.requests.append(self.temporal())
-			# 70% chance of a completely random value
-			else:
+			# Chance of a completely random value
+			elif ran_num <= (PREV_PROB + TEMPORAL_PROB + SPATIAL_PROB + RANDOM_PROB):
 				self.requests.append(self.random_value())
 		
 		return self.requests
@@ -61,5 +67,5 @@ class Request_Generator:
 		
 if __name__ == "__main__":
 	request_generator = Request_Generator()
-	requests = request_generator.generate_requests(10000)
+	requests = request_generator.generate_requests(1000)
 	print(requests)
