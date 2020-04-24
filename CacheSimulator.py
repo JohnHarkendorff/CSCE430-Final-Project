@@ -7,22 +7,27 @@ PREV_PROB = 0.1
 TEMPORAL_PROB = 0.30
 SPATIAL_PROB = 0.30
 RANDOM_PROB = 1.0 - PREV_PROB - TEMPORAL_PROB - SPATIAL_PROB
+L1_SIZE = 500
+L2_SIZE = 1000
+L3_SIZE = 1500
+MAIN_MEM_SIZE = 10000
 
 # Constants to be input later
 MAX_ADDRESS_VALUE = 2**16 #simulate 16 bit address
 
 class Cache:
-	def __init__(self):
-		return null
-
+	def __init__(self, cache_size, main_mem_flag):
+		self.cache_size = cache_size
+		self.cache_blocks = []
+		if main_mem_flag:
+			for i in range(self.cache_size):
+				self.cache_blocks.append(Cache_Block(i))
+					
 class Cache_Block:
-	def __init__(self, data_value):		
-		# -1 means it is in main memory
-		self.cache_level = -1
-		self.data_value = data_value
-		
+	def __init__(self, data_value):	
 		# This will be a number between 0 and the size of the cache. The value can only occur once for each cache level
 		self.last_used = 0
+		self.data_value = data_value
 				
 # Generates random requests to send to the cache class				
 class Request_Generator:
@@ -93,13 +98,20 @@ if __name__ == "__main__":
 	print('Cache Levels: L1, L2, and L3')
 
 	cache_size = input("Please enter if you want option 1, 2, or 3: ")
-
+	
+	caches = []
 	if cache_size == 1:
-		print('Call the respective function')
+		caches.append(Cache(L1_SIZE, False))
+		caches.append(Cache(MAIN_MEM_SIZE, True))
 	elif cache_size == 2:
-		print('Call the respective function')
+		caches.append(Cache(L1_SIZE, False))
+		caches.append(Cache(L2_SIZE, False))
+		caches.append(Cache(MAIN_MEM_SIZE, True))
 	elif cache_size == 3:
-		print('Call the respective function')
+		caches.append(Cache(L1_SIZE, False))
+		caches.append(Cache(L2_SIZE, False))
+		caches.append(Cache(L3_SIZE, False))
+		caches.append(Cache(MAIN_MEM_SIZE, True))
 		
 	request_generator = Request_Generator(MAX_ADDRESS_VALUE)
 	requests = request_generator.generate_requests(1000)
