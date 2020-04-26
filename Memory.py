@@ -26,7 +26,13 @@ class Cache:
                 return True
         return False
         
-    def insert_data(self, data_value):
-        self.cache_blocks.insert(0, data_value)
-        if len(self.cache_blocks) > self.max_block_num:
+    # data_values is a list of numbers, as opposed to a single number, so that we can easily support
+    # adding temporal/spatial values at the same time
+    def insert_data(self, data_values):
+        for value in data_values:
+            if value not in self.cache_blocks:
+                self.cache_blocks.insert(0, value)
+            
+        # Pop the Least Recently Used (LRU) items if the cache is too full
+        while len(self.cache_blocks) > self.max_block_num:
             self.cache_blocks.pop()
