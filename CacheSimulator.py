@@ -3,7 +3,6 @@ import sys
 
 from Memory import MainMemory
 from Memory import Cache
-from Memory import CacheBlock
 from RequestGenerator import RequestGenerator
 
 # Cache sizes, all need to be multiples of CACHE_BLOCK_SIZE
@@ -47,9 +46,29 @@ if __name__ == "__main__":
         caches.append(Cache(L3_SIZE, CACHE_BLOCK_SIZE, L3_ACCESS_TIME))
         caches.append(MainMemory(MAX_ADDRESS_VALUE, CACHE_BLOCK_SIZE, MAIN_MEM_ACCESS_TIME))
 
-    print("Number of caches: ", len(caches)-1) # minus 1 because memory is the last one
-    print("L1 length: ", len(caches[0].cache_blocks))
-    #print("Main mem length: ", len(caches[len(caches) - 1].cache_blocks))
-
     request_generator = RequestGenerator(MAX_ADDRESS_VALUE)
     requests = request_generator.generate_requests(1000)
+    
+    for data_value in requests:
+        # First find the requeste piece of data
+        data_found = False
+        i = 0
+        while not data_found and i < len(caches):
+            data_found = caches[i].request_data(data_value)
+            if not data_found:
+                i = i + 1
+            
+        # After the data has been found, place it in each cache above the one it was found in
+        i = i - 1
+        while i >= 0:
+            caches[i].insert_data(data_value)
+            i = i - 1
+            
+    # Find the access time at the end of making all requests
+    total_access_time = 0
+    for cache in caches:
+        total_access_time = total_access_time + cache.total_access_time
+        
+    print("Total access time: ", total_access_time)
+    print(caches[0].cache_blocks)
+    
