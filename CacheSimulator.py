@@ -49,8 +49,9 @@ if __name__ == "__main__":
     request_generator = RequestGenerator(MAX_ADDRESS_VALUE)
     requests = request_generator.generate_requests(1000)
     
+    # Make all requests!
     for data_value in requests:
-        # First find the requeste piece of data
+        # First find the requested piece of data
         data_found = False
         i = 0
         while not data_found and i < len(caches):
@@ -61,7 +62,7 @@ if __name__ == "__main__":
         # After the data has been found, place it in each cache above the one it was found in
         i = i - 1
         while i >= 0:
-            caches[i].insert_data(data_value)
+            caches[i].insert_data([data_value])
             i = i - 1
             
     # Find the access time at the end of making all requests
