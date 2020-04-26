@@ -21,10 +21,12 @@ class Cache:
         
     def request_data(self, data_value):
         self.total_access_time = self.total_access_time + self.access_time
-        return True
-
-class CacheBlock:
-    def __init__(self, data_value): 
-        # This will be a number between 0 and the size of the cache. The value can only occur once for each cache level
-        self.last_used = 0
-        self.data_value = data_value
+        for value in self.cache_blocks:
+            if value == data_value:
+                return True
+        return False
+        
+    def insert_data(self, data_value):
+        self.cache_blocks.insert(0, data_value)
+        if len(self.cache_blocks) > self.max_block_num:
+            self.cache_blocks.pop()
