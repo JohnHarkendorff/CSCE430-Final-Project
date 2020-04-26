@@ -1,4 +1,12 @@
-# Generates random requests to send to the cache class				
+import random
+
+# Probabilities of different types of access
+PREV_PROB = 0.1
+TEMPORAL_PROB = 0.30
+SPATIAL_PROB = 0.30
+RANDOM_PROB = 1.0 - PREV_PROB - TEMPORAL_PROB - SPATIAL_PROB
+
+# Generates random requests to send to the cache class              
 class RequestGenerator:
     def __init__(self, max_value):
         self.requests = []
