@@ -23,6 +23,7 @@ class Cache:
         self.total_access_time = self.total_access_time + self.access_time
         for value in self.cache_blocks:
             if value == data_value:
+                self.update_lru_status(data_value)
                 return True
         return False
         
@@ -31,8 +32,14 @@ class Cache:
     def insert_data(self, data_values):
         for value in data_values:
             if value not in self.cache_blocks:
+                # Prepend it to the beginning of the list so we can keep track of the LRU item
                 self.cache_blocks.insert(0, value)
             
-        # Pop the Least Recently Used (LRU) items if the cache is too full
+        # Pop the LRU items if the cache is too full
         while len(self.cache_blocks) > self.max_block_num:
             self.cache_blocks.pop()
+        
+    # If an item was successfully requested in the cache, we need to update its
+    # LRU status and move it to the beginning of the list
+    def update_lru_status(self, data_value):
+        self.cache_blocks.insert(0, self.cache_blocks.pop(self.cache_blocks.index(data_value)))
