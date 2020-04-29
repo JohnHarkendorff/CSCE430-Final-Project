@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 import sys
 
-from Memory import MainMemory
-from Memory import Cache
+from Cache import Cache
+from Cache import CacheBlock
 from RequestGenerator import RequestGenerator
 
 # Probabilities of different types of access
@@ -16,12 +16,6 @@ CACHE_BLOCK_SIZE = 2**4 				 # 16 bytes per block
 L1_SIZE = CACHE_BLOCK_SIZE * ( 2 ** 4 )  # 16 blocks in L1
 L2_SIZE = CACHE_BLOCK_SIZE * ( 2 ** 7 )  # 128 blocks in L2
 L3_SIZE = CACHE_BLOCK_SIZE * ( 2 ** 10 ) # 1024 blocks in L3
-
-# Cache access times, in nanoseconds
-L1_ACCESS_TIME = 10
-L2_ACCESS_TIME = 50
-L3_ACCESS_TIME = 150
-MAIN_MEM_ACCESS_TIME = 600
 
 # Constants to be input later
 MAX_ADDRESS_VALUE = 2**16 #simulate 16 bit address
