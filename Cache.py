@@ -39,9 +39,9 @@ class Cache:
         stringified = ""
 
         if self.main_mem_flag:
-            stringified += "<MainMemory>"
+            stringified += "\n<MainMemory>"
         else:
-            stringified += "<Cache>"
+            stringified += "\n<Cache>"
 
         stringified += " size: {}, block size: {}, max number of blocks: {}, current number of blocks: {}".format(self.cache_size, self.block_size, self.max_block_num, len(self.cache_blocks) )
         stringified += ", accesses: {}, total access time: {}".format( self.access_count, self.access_count*self.access_time )
