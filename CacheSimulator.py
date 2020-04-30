@@ -43,17 +43,17 @@ if __name__ == "__main__":
     # Init selected cache option
     caches = []
     if cache_size == 1:
-        caches.insert(0, Cache(MAX_ADDRESS_VALUE, CACHE_BLOCK_SIZE, None, True))
-        caches.insert(0, Cache(L1_SIZE, CACHE_BLOCK_SIZE, caches[0]) )
+        caches.insert(0, Cache(MAX_ADDRESS_VALUE, CACHE_BLOCK_SIZE, None, MAIN_MEM_ACCESS_TIME, True))
+        caches.insert(0, Cache(L1_SIZE, CACHE_BLOCK_SIZE, caches[0], L1_ACCESS_TIME ) )
     elif cache_size == 2:
-        caches.insert(0, Cache(MAX_ADDRESS_VALUE, CACHE_BLOCK_SIZE, None, True))
-        caches.insert(0, Cache(L2_SIZE, CACHE_BLOCK_SIZE, caches[0]) )
-        caches.insert(0, Cache(L1_SIZE, CACHE_BLOCK_SIZE, caches[0]) )
+        caches.insert(0, Cache(MAX_ADDRESS_VALUE, CACHE_BLOCK_SIZE, None, MAIN_MEM_ACCESS_TIME, True))
+        caches.insert(0, Cache(L2_SIZE, CACHE_BLOCK_SIZE, caches[0], L2_ACCESS_TIME ) )
+        caches.insert(0, Cache(L1_SIZE, CACHE_BLOCK_SIZE, caches[0], L1_ACCESS_TIME ) )
     elif cache_size == 3:
-        caches.insert(0, Cache(MAX_ADDRESS_VALUE, CACHE_BLOCK_SIZE, None, True))
-        caches.insert(0, Cache(L3_SIZE, CACHE_BLOCK_SIZE, caches[0]) )
-        caches.insert(0, Cache(L2_SIZE, CACHE_BLOCK_SIZE, caches[0]) )
-        caches.insert(0, Cache(L1_SIZE, CACHE_BLOCK_SIZE, caches[0]) )
+        caches.insert(0, Cache(MAX_ADDRESS_VALUE, CACHE_BLOCK_SIZE, None, MAIN_MEM_ACCESS_TIME, True))
+        caches.insert(0, Cache(L3_SIZE, CACHE_BLOCK_SIZE, caches[0], L3_ACCESS_TIME ) )
+        caches.insert(0, Cache(L2_SIZE, CACHE_BLOCK_SIZE, caches[0], L2_ACCESS_TIME ) )
+        caches.insert(0, Cache(L1_SIZE, CACHE_BLOCK_SIZE, caches[0], L1_ACCESS_TIME ) )
 
     # Print results of init
     print("\nNumber of caches: ", len(caches)-1) # minus 1 because memory is the last one
@@ -75,5 +75,6 @@ if __name__ == "__main__":
     for mem_address in requests:
         caches[0].search_for_address(mem_address)
 
+    # Print cache's in plain text
     for cache in caches:
         print(cache)

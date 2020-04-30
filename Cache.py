@@ -1,10 +1,11 @@
 class Cache:
-    def __init__(self, cache_size, block_size, next_level_cache, main_mem_flag = False):
+    def __init__(self, cache_size, block_size, next_level_cache, access_time, main_mem_flag = False):
         # Stats about the cache itself
         self.cache_size = cache_size
         self.block_size = block_size
         self.max_block_num = int( cache_size / block_size )
         self.access_count = 0
+        self.access_time = access_time
 
         # Reference to the next deepest cache
         self.next_level_cache = next_level_cache
@@ -30,7 +31,7 @@ class Cache:
             stringified += "\n<Cache>"
 
         stringified += " size: {}, block size: {}, max number of blocks: {}, current number of blocks: {}".format(self.cache_size, self.block_size, self.max_block_num, len(self.cache_blocks) )
-        stringified += ", accesses: {}".format( self.access_count )
+        stringified += ", accesses: {}, total access time: {}".format( self.access_count, self.access_count*self.access_time )
 
         return stringified
 
