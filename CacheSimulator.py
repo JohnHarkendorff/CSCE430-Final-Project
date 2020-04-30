@@ -58,6 +58,11 @@ if __name__ == "__main__":
     # Print results of init
     print("\nNumber of caches: ", len(caches)-1) # minus 1 because memory is the last one
     print("L1 size: ", caches[0].cache_size)
+    if cache_size == 2:
+        print("L2 size: ", caches[1].cache_size)
+    elif cache_size == 3:
+        print("L2 size: ", caches[1].cache_size)
+        print("L3 size: ", caches[2].cache_size)
     print("Main mem size: ", len(caches[len(caches) - 1].cache_blocks))
 
     # Generate memory access requests
