@@ -63,7 +63,7 @@ if __name__ == "__main__":
     elif cache_size == 3:
         print("L2 size (in bytes): ", caches[1].cache_size)
         print("L3 size (in bytes): ", caches[2].cache_size)
-    print("Main mem size: ", len(caches[len(caches) - 1].cache_blocks))
+    print("Main mem size: ", caches[len(caches) - 1].cache_size)
 
     # Generate memory access requests
     request_generator = RequestGenerator(MAX_ADDRESS_VALUE, PREV_PROB, TEMPORAL_PROB, SPATIAL_PROB, RANDOM_PROB)
