@@ -1,5 +1,9 @@
+import random
+
+MAX_ADDRESS_VALUE = 2**20
+
 class Cache:
-    def __init__(self, cache_size, block_size, next_level_cache, access_time, main_mem_flag = False):
+    def __init__(self, cache_size, block_size, next_level_cache, access_time, main_mem_flag = False, init_cache = True):
         # Stats about the cache itself
         self.cache_size = cache_size
         self.block_size = block_size
@@ -20,6 +24,15 @@ class Cache:
                 start = i * self.block_size
                 end = (i+1) * self.block_size - 1
                 self.cache_blocks.append( CacheBlock( start, end ) )
+        
+        # Init the cache with random blocks
+        elif init_cache:
+            random.seed(123)
+            while len(self.cache_blocks) < self.max_block_num:
+                mem_address = random.randint(1, MAX_ADDRESS_VALUE-1)
+                block = CacheBlock( int(mem_address/block_size) * block_size, ( int(mem_address/block_size) + 1 ) * block_size)
+                if not self.contains_block( block ):
+                    self.cache_new_block( block )
 
     # Human readable version of the cache
     def __str__(self):
@@ -80,6 +93,13 @@ class Cache:
             
             # Swap in new block for least recently used block
             self.cache_blocks[i] = block_to_cache
+
+    def contains_block(self, block_check):
+        for i in range( len(self.cache_blocks) ):
+            if block_check.min_address == self.cache_blocks[i].min_address and block_check.max_address == self.cache_blocks[i].max_address:
+                return True
+
+        return False
 
 class CacheBlock:
     def __init__(self, min_address, max_address):	

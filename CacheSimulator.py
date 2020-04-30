@@ -7,8 +7,8 @@ from RequestGenerator import RequestGenerator
 
 # Probabilities of different types of access
 PREV_PROB = 0.1
-TEMPORAL_PROB = 0.30
-SPATIAL_PROB = 0.50
+TEMPORAL_PROB = 0.25
+SPATIAL_PROB = 0.25
 RANDOM_PROB = 1.0 - PREV_PROB - TEMPORAL_PROB - SPATIAL_PROB
 
 # Cache sizes, all need to be multiples of CACHE_BLOCK_SIZE
@@ -21,7 +21,7 @@ L3_SIZES = [ ( 2 ** 16 ), ( 2 ** 17 ), ( 2 ** 18 ) ]   # 64k 128k 256k
 L1_ACCESS_TIMES = [ 0.35, 0.5, 0.805 ]
 L2_ACCESS_TIMES = [ 0.5, 0.805, 1.1 ]
 L3_ACCESS_TIMES = [ 0.805, 1.1, 1.416 ]
-MAIN_MEM_ACCESS_TIME = 30
+MAIN_MEM_ACCESS_TIME = 10
 
 # Constants
 MAX_ADDRESS_VALUE = 2**20 #simulate 20 bit address, 1MB of memory
