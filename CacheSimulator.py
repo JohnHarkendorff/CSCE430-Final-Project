@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 import sys
 
-from Memory import MainMemory
-from Memory import Cache
+from Cache import Cache
+from Cache import CacheBlock
 from RequestGenerator import RequestGenerator
 
 # Probabilities of different types of access
